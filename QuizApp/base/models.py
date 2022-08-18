@@ -24,6 +24,16 @@ class Question(BaseModel):
     def __str__(self):
         return self.question
 
+    def get_answers(self):
+        answer = Answer.objects.filter(question=self)
+        data = []
+        for ans in answer:
+            data.append({
+                'answer': ans.answer,
+                'is_correct': ans.is_correct,
+            })
+        return data 
+
 
 class Answer(BaseModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE,related_name='questions')

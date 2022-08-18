@@ -10,13 +10,15 @@ def get_quize(request):
         data = []
         random.shuffle((questions))
 
-        print()
+        print(questions)
 
         for question in questions:
+            print(question.question)
             data.append({
                 'category': question.category.category_name,
                 'question': question.question,
                 'marks': question.marks,
+                'answers': question.get_answers(),
             })
 
         payload = {
