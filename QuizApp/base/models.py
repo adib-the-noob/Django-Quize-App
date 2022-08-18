@@ -1,5 +1,7 @@
+from re import A
 from django.db import models
 import uuid
+import random
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -25,7 +27,8 @@ class Question(BaseModel):
         return self.question
 
     def get_answers(self):
-        answer = Answer.objects.filter(question=self)
+        answer = list(Answer.objects.filter(question=self))
+        random.shuffle(answer)
         data = []
         for ans in answer:
             data.append({
